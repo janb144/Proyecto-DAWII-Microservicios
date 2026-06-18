@@ -12,23 +12,20 @@ public class Mantenimiento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cod_Mantenimiento;
-	private String clienteDocumento;
-	private String clienteNombre;
+	private int cod_Cliente;
 	private String motoPlaca;
 	private String motoModelo;
 	private String descripcionAveria;
 	private double costoManoObra;
 	private String estado = "Pendiente";
 	private LocalDate fechaIngreso = LocalDate.now();
-	
-	public Mantenimiento() {}
 
-	public Mantenimiento(int cod_Mantenimiento, String clienteDocumento, String clienteNombre, String motoPlaca,
-			String motoModelo, String descripcionAveria, double costoManoObra, String estado, LocalDate fechaIngreso) {
-		super();
-		this.cod_Mantenimiento = cod_Mantenimiento;
-		this.clienteDocumento = clienteDocumento;
-		this.clienteNombre = clienteNombre;
+	public Mantenimiento() {
+	}
+
+	public Mantenimiento(int cod_Cliente, String motoPlaca, String motoModelo, String descripcionAveria,
+			double costoManoObra, String estado, LocalDate fechaIngreso) {
+		this.cod_Cliente = cod_Cliente;
 		this.motoPlaca = motoPlaca;
 		this.motoModelo = motoModelo;
 		this.descripcionAveria = descripcionAveria;
@@ -37,11 +34,10 @@ public class Mantenimiento {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public Mantenimiento(String clienteDocumento, String clienteNombre, String motoPlaca, String motoModelo,
+	public Mantenimiento(int cod_Mantenimiento, int cod_Cliente, String motoPlaca, String motoModelo,
 			String descripcionAveria, double costoManoObra, String estado, LocalDate fechaIngreso) {
-		super();
-		this.clienteDocumento = clienteDocumento;
-		this.clienteNombre = clienteNombre;
+		this.cod_Mantenimiento = cod_Mantenimiento;
+		this.cod_Cliente = cod_Cliente;
 		this.motoPlaca = motoPlaca;
 		this.motoModelo = motoModelo;
 		this.descripcionAveria = descripcionAveria;
@@ -58,20 +54,12 @@ public class Mantenimiento {
 		this.cod_Mantenimiento = cod_Mantenimiento;
 	}
 
-	public String getClienteDocumento() {
-		return clienteDocumento;
+	public int getCod_Cliente() {
+		return cod_Cliente;
 	}
 
-	public void setClienteDocumento(String clienteDocumento) {
-		this.clienteDocumento = clienteDocumento;
-	}
-
-	public String getClienteNombre() {
-		return clienteNombre;
-	}
-
-	public void setClienteNombre(String clienteNombre) {
-		this.clienteNombre = clienteNombre;
+	public void setCod_Cliente(int cod_Cliente) {
+		this.cod_Cliente = cod_Cliente;
 	}
 
 	public String getMotoPlaca() {
@@ -121,4 +109,4 @@ public class Mantenimiento {
 	public void setFechaIngreso(LocalDate fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
-	}
+}
