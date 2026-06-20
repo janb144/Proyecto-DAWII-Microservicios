@@ -12,4 +12,5 @@ public interface IRepuestoService {
 	public Optional<Repuesto>				findRepuesto(int codigo);
 	public String							updateRepuesto(int codigo, RepuestoRequest request);
 	public void 							deleteRepuesto(int codigo);
+	void disminuirStock						(int codigo, int cantidad);
 }

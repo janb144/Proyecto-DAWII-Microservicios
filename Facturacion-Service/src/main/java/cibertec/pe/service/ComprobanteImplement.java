@@ -97,6 +97,9 @@ public class ComprobanteImplement implements IComprobanteService {
 			// Calcular el acumulado del costo de este repuesto (precio * cantidad)
 			subTotalRepuestos +=(repue.getPrecioUnitario()* item.getCantidad());
 			
+			//implementando método del feign para restar Stock
+			repuestoFeign.disminuirStock(item.getCod_Repuesto(), item.getCantidad());
+			
 			// Agregar el detalle a la boleta usando el método utilitario de tu modelo
 			// Esto amarra automáticamente la llave foránea de la relación bidireccional
 			compro.getDetalles().add(detalle);

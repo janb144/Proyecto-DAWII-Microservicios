@@ -76,4 +76,15 @@ public class RepuestoImplement implements IRepuestoService {
 	public void deleteRepuesto(int codigo) {
 		repu.deleteById(codigo);
 	}
+
+	@Override
+	public void disminuirStock(int codigo, int cantidad) {
+		Repuesto repue = repu.findById(codigo).orElse(null);
+		if(repue!=null) {
+			int nuevoStock = repue.getStock()-cantidad;
+			repue.setStock(nuevoStock);
+			repu.save(repue);
+		}
+		
+	}
 }

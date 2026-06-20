@@ -46,7 +46,10 @@ public class RepuestoController {
 	@DeleteMapping("/eliminarRepuesto/{codigo}")
 	public void deleteRepuesto(@PathVariable int codigo) {
 		repu.deleteRepuesto(codigo);
-
 	}
-
+	
+	@PutMapping("/disminuirStock/{codigo}/{cantidad}")
+	public void disminuirStock(@PathVariable int codigo, @PathVariable int cantidad) {
+		repu.disminuirStock(codigo, cantidad);
+	}
 }
