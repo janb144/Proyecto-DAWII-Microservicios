@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cibertec.pe.entity.RepuestoRequest;
 import cibertec.pe.model.Repuesto;
-import cibertec.pe.service.IRepuestoService;
 import cibertec.pe.service.RepuestoImplement;
 
 @RestController
@@ -29,8 +29,8 @@ public class RepuestoController {
 	}
 
 	@PostMapping("/crearRepuesto")
-	public Repuesto createRepuesto(@RequestBody Repuesto repuesto) {
-		return repu.createRepuesto(repuesto);
+	public Repuesto createRepuesto(@RequestBody RepuestoRequest request) {
+		return repu.createRepuesto(request);
 	}
 
 	@GetMapping("/buscarRepuesto/{codigo}")
@@ -39,14 +39,17 @@ public class RepuestoController {
 	}
 
 	@PutMapping("/editarRepuesto/{codigo}")
-	public String updateRepuesto(@PathVariable int codigo,@RequestBody Repuesto respuesto) {
-		return repu.updateRepuesto(codigo, respuesto);
+	public String updateRepuesto(@PathVariable int codigo, @RequestBody RepuestoRequest request) {
+		return repu.updateRepuesto(codigo, request);
 	}
 
 	@DeleteMapping("/eliminarRepuesto/{codigo}")
 	public void deleteRepuesto(@PathVariable int codigo) {
-		 repu.deleteRepuesto(codigo);
-
+		repu.deleteRepuesto(codigo);
 	}
-
+	
+	@PutMapping("/disminuirStock/{codigo}/{cantidad}")
+	public void disminuirStock(@PathVariable int codigo, @PathVariable int cantidad) {
+		repu.disminuirStock(codigo, cantidad);
+	}
 }
