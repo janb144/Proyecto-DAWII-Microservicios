@@ -8,21 +8,19 @@ import jakarta.persistence.Id;
 @Entity
 public class Repuesto {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int cod_Repuesto;
-	private int cod_Proveedor;
 	private String nom_Repuesto;
 	private String marcaRep;
 	private String descripRep;
 	private double precioUnitario;
 	private int stock;
+	
+	public Repuesto() {}
 
-	public Repuesto() {
-	}
-
-	public Repuesto(int cod_Proveedor, String nom_Repuesto, String marcaRep, String descripRep, double precioUnitario,
+	public Repuesto(int cod_Repuesto, String nom_Repuesto, String marcaRep, String descripRep, double precioUnitario,
 			int stock) {
-		this.cod_Proveedor = cod_Proveedor;
+		this.cod_Repuesto = cod_Repuesto;
 		this.nom_Repuesto = nom_Repuesto;
 		this.marcaRep = marcaRep;
 		this.descripRep = descripRep;
@@ -30,10 +28,7 @@ public class Repuesto {
 		this.stock = stock;
 	}
 
-	public Repuesto(int cod_Repuesto, int cod_Proveedor, String nom_Repuesto, String marcaRep, String descripRep,
-			double precioUnitario, int stock) {
-		this.cod_Repuesto = cod_Repuesto;
-		this.cod_Proveedor = cod_Proveedor;
+	public Repuesto(String nom_Repuesto, String marcaRep, String descripRep, double precioUnitario, int stock) {
 		this.nom_Repuesto = nom_Repuesto;
 		this.marcaRep = marcaRep;
 		this.descripRep = descripRep;
@@ -47,14 +42,6 @@ public class Repuesto {
 
 	public void setCod_Repuesto(int cod_Repuesto) {
 		this.cod_Repuesto = cod_Repuesto;
-	}
-
-	public int getCod_Proveedor() {
-		return cod_Proveedor;
-	}
-
-	public void setCod_Proveedor(int cod_Proveedor) {
-		this.cod_Proveedor = cod_Proveedor;
 	}
 
 	public String getNom_Repuesto() {
@@ -96,5 +83,4 @@ public class Repuesto {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-
 }

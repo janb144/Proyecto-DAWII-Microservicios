@@ -33,7 +33,8 @@ public class MantenimientoImplement implements IMantenimientoService{
 	public String updateMantenimiento(int codigo, Mantenimiento mantenimiento) {
 		Mantenimiento manteni = mant.findById(codigo).get();
 		if(manteni !=null) {
-			manteni.setCod_Cliente(mantenimiento.getCod_Cliente());
+			manteni.setClienteDocumento(mantenimiento.getClienteDocumento());
+			manteni.setClienteNombre(mantenimiento.getClienteNombre());
 			manteni.setMotoPlaca(mantenimiento.getMotoPlaca());
 			manteni.setMotoModelo(mantenimiento.getMotoModelo());
 			manteni.setDescripcionAveria(mantenimiento.getDescripcionAveria());

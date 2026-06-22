@@ -4,17 +4,13 @@ import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import cibertec.pe.entity.MantenimientoDto;
+import cibertec.pe.entity.Mantenimiento;
 
-@FeignClient(name="Mantenimiento-Service", url="http://localhost:9001")
+@FeignClient(name ="REST-Mantenimiento-Service",url ="http://localhost:9001/")
 public interface MantenimientoFeignClient {
 	
-	@GetMapping("/api/mantenimiento/buscarMantenimiento/{codigo}")
-	public MantenimientoDto obtenerMantenimientoPorId(@PathVariable int codigo);
-	
 	@GetMapping("/api/mantenimiento/listMantenimientos")
-	public List<MantenimientoDto> listarMantenimientos();
+	public List<Mantenimiento> listarMantenimientos();
 
 }
