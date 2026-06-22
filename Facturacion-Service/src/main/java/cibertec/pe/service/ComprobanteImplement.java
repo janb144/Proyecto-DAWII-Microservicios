@@ -43,8 +43,8 @@ public class ComprobanteImplement implements IComprobanteService {
 		if(mantDto == null) {
 			throw new RuntimeException("No se encontró el IdMantenimiento");
 		}
-		if(!mantDto.getEstado().equals("Finalizado")) {
-			throw new RuntimeException("Debe finalizar el mantenimiento para crear Comprobante");
+		if (!"Finalizado".equals(mantDto.getEstado())) {
+		    throw new RuntimeException("El estado del mantenimiento debe estar \"Finalizado\" para crear Comprobante");
 		}
 		// Consumimos código del cliente guardado en el mantenimiento
 		ClienteDto cliDto = clienteFeign.obtenerClienteDtoPorId(mantDto.getCod_Cliente());
@@ -54,20 +54,37 @@ public class ComprobanteImplement implements IComprobanteService {
 		Comprobante compro = new Comprobante();
 
 		compro.setCod_Mantenimiento(mantDto.getCod_Mantenimiento());
-		compro.setClienteDocumento(cliDto.getNumDocumento());
 		compro.setClienteNombre(cliDto.getNomRazSocial());
+		compro.setTipoDocumento(cliDto.getTipoDocumento());
+		compro.setClienteDocumento(cliDto.getNumDocumento());
 		compro.setMotoPlaca(mantDto.getMotoPlaca());
 		compro.setCostoManoObra(mantDto.getCostoManoObra());
-		//compro.setFechaEmision(LocalDate.now());
 		
-		//Agregamos condicional para crear Comprobante
+		//Agregamos condicional para crear Comprobante y Nro de serie
 		if(cliDto.getTipoDocumento().equals("DNI")) {
 			compro.setTipoComprobante("BOLETA");
+			compro.setNroSerie("B001");
 		}else if (cliDto.getTipoDocumento().equals("RUC")) {
 			compro.setTipoComprobante("FACTURA");
+			compro.setNroSerie("F001");
 		}else {
 			compro.setTipoComprobante("COMPROBANTE");
+			compro.setNroSerie("000");
 		}
+
+		// Buscar el último comprobante emitido para ese tipo y serie
+		Comprobante ultimoComprobante = comproRepo.findTopByTipoComprobanteAndNroSerieOrderByCorrelativoDesc(compro.getTipoComprobante(), compro.getNroSerie());
+
+		int ultimoCorrelativo = 0;
+
+		// buscamos último correlativo, si no existe asignamos 0
+		if (ultimoComprobante != null) {
+		    ultimoCorrelativo = ultimoComprobante.getCorrelativo();
+		}
+
+		// Asignar el nuevo correlativo
+		compro.setCorrelativo(ultimoCorrelativo + 1);
+		
 		double subTotalRepuestos = 0.0;
 
 		// Inicializamos la lista de Detalles
@@ -100,12 +117,10 @@ public class ComprobanteImplement implements IComprobanteService {
 			//implementando método del feign para restar Stock
 			repuestoFeign.disminuirStock(item.getCod_Repuesto(), item.getCantidad());
 			
-			// Agregar el detalle a la boleta usando el método utilitario de tu modelo
-			// Esto amarra automáticamente la llave foránea de la relación bidireccional
+			//recordamos guardar detalles 
 			compro.getDetalles().add(detalle);
 		}
-		// 4. Calcular el total definitivo de la venta (Suma de repuestos + costo de mantenimiento
-				// del servicio)
+			//Calcular el total definitivo de la venta (Suma de repuestos + costo de mantenimiento del servicio)
 		
 		double montoConIGV = subTotalRepuestos + compro.getCostoManoObra();
 		double subTotalNeto = Math.round((montoConIGV / 1.18) * 100.0) / 100.0;
@@ -113,11 +128,9 @@ public class ComprobanteImplement implements IComprobanteService {
 		
 		compro.setSubTotal(subTotalNeto);
 		compro.setIgv(obtenerIgv);
-		compro.setTotal(montoConIGV);
+		compro.setTotal(montoConIGV);		
 		
-		
-		
-		// 5. Unico .save() en cascada gracias a CascadeType.ALL en el modelo Factura
+		//Unico .save() en cascada gracias a CascadeType.ALL en el modelo Factura
 		return comproRepo.save(compro);
 
 	}

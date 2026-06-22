@@ -20,9 +20,12 @@ public class Comprobante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cod_Comprobante;
 	private String tipoComprobante;
+	private String nroSerie;
+	private int correlativo;
 	private int cod_Mantenimiento;
-	private String clienteDocumento;
 	private String clienteNombre;
+	private String tipoDocumento;
+	private String clienteDocumento;
 	private String motoPlaca;
 	private double costoManoObra;
 	private double subTotal;
@@ -38,13 +41,17 @@ public class Comprobante {
 	public Comprobante() {
 	}
 
-	public Comprobante(String tipoComprobante, int cod_Mantenimiento, String clienteDocumento, String clienteNombre,
-			String motoPlaca, double costoManoObra, double subTotal, double igv, double total, LocalDate fechaEmision,
-			List<DetalleComprobante> detalles) {
+	public Comprobante(String tipoComprobante, String nroSerie, int correlativo, int cod_Mantenimiento,
+			String clienteNombre, String tipoDocumento, String clienteDocumento, String motoPlaca, double costoManoObra,
+			double subTotal, double igv, double total, LocalDate fechaEmision, List<DetalleComprobante> detalles) {
+		super();
 		this.tipoComprobante = tipoComprobante;
+		this.nroSerie = nroSerie;
+		this.correlativo = correlativo;
 		this.cod_Mantenimiento = cod_Mantenimiento;
-		this.clienteDocumento = clienteDocumento;
 		this.clienteNombre = clienteNombre;
+		this.tipoDocumento = tipoDocumento;
+		this.clienteDocumento = clienteDocumento;
 		this.motoPlaca = motoPlaca;
 		this.costoManoObra = costoManoObra;
 		this.subTotal = subTotal;
@@ -54,14 +61,19 @@ public class Comprobante {
 		this.detalles = detalles;
 	}
 
-	public Comprobante(int cod_Comprobante, String tipoComprobante, int cod_Mantenimiento, String clienteDocumento,
-			String clienteNombre, String motoPlaca, double costoManoObra, double subTotal, double igv, double total,
-			LocalDate fechaEmision, List<DetalleComprobante> detalles) {
+	public Comprobante(int cod_Comprobante, String tipoComprobante, String nroSerie, int correlativo,
+			int cod_Mantenimiento, String clienteNombre, String tipoDocumento, String clienteDocumento,
+			String motoPlaca, double costoManoObra, double subTotal, double igv, double total, LocalDate fechaEmision,
+			List<DetalleComprobante> detalles) {
+		super();
 		this.cod_Comprobante = cod_Comprobante;
 		this.tipoComprobante = tipoComprobante;
+		this.nroSerie = nroSerie;
+		this.correlativo = correlativo;
 		this.cod_Mantenimiento = cod_Mantenimiento;
-		this.clienteDocumento = clienteDocumento;
 		this.clienteNombre = clienteNombre;
+		this.tipoDocumento = tipoDocumento;
+		this.clienteDocumento = clienteDocumento;
 		this.motoPlaca = motoPlaca;
 		this.costoManoObra = costoManoObra;
 		this.subTotal = subTotal;
@@ -87,6 +99,22 @@ public class Comprobante {
 		this.tipoComprobante = tipoComprobante;
 	}
 
+	public String getNroSerie() {
+		return nroSerie;
+	}
+
+	public void setNroSerie(String nroSerie) {
+		this.nroSerie = nroSerie;
+	}
+
+	public int getCorrelativo() {
+		return correlativo;
+	}
+
+	public void setCorrelativo(int correlativo) {
+		this.correlativo = correlativo;
+	}
+
 	public int getCod_Mantenimiento() {
 		return cod_Mantenimiento;
 	}
@@ -95,20 +123,28 @@ public class Comprobante {
 		this.cod_Mantenimiento = cod_Mantenimiento;
 	}
 
-	public String getClienteDocumento() {
-		return clienteDocumento;
-	}
-
-	public void setClienteDocumento(String clienteDocumento) {
-		this.clienteDocumento = clienteDocumento;
-	}
-
 	public String getClienteNombre() {
 		return clienteNombre;
 	}
 
 	public void setClienteNombre(String clienteNombre) {
 		this.clienteNombre = clienteNombre;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public String getClienteDocumento() {
+		return clienteDocumento;
+	}
+
+	public void setClienteDocumento(String clienteDocumento) {
+		this.clienteDocumento = clienteDocumento;
 	}
 
 	public String getMotoPlaca() {
