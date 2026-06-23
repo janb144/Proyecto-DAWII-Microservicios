@@ -102,7 +102,7 @@ public class SunatSoapClient {
                 try (FileOutputStream fos = new FileOutputStream(archivoCdr)) {
                     fos.write(cdrZipBytes);
                 }
-                return "Factura ACEPTADA por SUNAT. CDR guardado en: " + archivoCdr.getAbsolutePath();
+                return "Comprobante ACEPTADO por SUNAT. CDR guardado en: " + archivoCdr.getAbsolutePath();
             }
 
             // Caso B: Mensaje de rechazo estructurado (Fault)
